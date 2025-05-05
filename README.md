@@ -26,6 +26,7 @@ services:
       POSTGRES_DATABASE: dbname
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+      BACKUP_HEARTBEAT_URL: https://monitoring.example.com/heartbeat  # optional
 ```
 
 - Images are tagged by the major PostgreSQL version supported: `12`, `13`, `14`, `15` or `16` or `17`.
@@ -34,6 +35,7 @@ services:
 - Run `docker exec <container name> sh backup.sh` to trigger a backup ad-hoc.
 - If `BACKUP_KEEP_DAYS` is set, backups older than this many days will be deleted from S3.
 - Set `S3_ENDPOINT` if you're using a non-AWS S3-compatible storage provider.
+- If `BACKUP_HEARTBEAT_URL` is set, a POST request will be sent to this URL after a successful backup, which is useful for monitoring solutions.
 
 ## Restore
 > [!CAUTION]

@@ -35,6 +35,12 @@ rm "$local_file"
 
 echo "Backup complete."
 
+if [ -n "$BACKUP_HEARTBEAT_URL" ]; then
+  echo "Sending heartbeat to $BACKUP_HEARTBEAT_URL..."
+  curl -s -S -X POST "$BACKUP_HEARTBEAT_URL" || echo "Failed to send heartbeat"
+  echo "Heartbeat sent."
+fi
+
 if [ -n "$BACKUP_KEEP_DAYS" ]; then
   sec=$((86400*BACKUP_KEEP_DAYS))
   date_from_remove=$(date -d "@$(($(date +%s) - sec))" +%Y-%m-%d)
