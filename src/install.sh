@@ -11,7 +11,9 @@ apk add postgresql18-client
 # install gpg
 apk add gnupg
 
-apk add aws-cli
+# install AWS CLI via pip for better OpenSSL compatibility
+apk add python3 py3-pip
+pip3 install --break-system-packages --no-cache-dir awscli
 
 # install go-cron
 apk add curl
